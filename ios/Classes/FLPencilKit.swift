@@ -265,15 +265,12 @@ private class PencilKitView: UIView {
   }
 
   func loadBase64Data(base64Data: String) throws {
-    let data = Data(base64Encoded: base64Data)!
+    guard let data = Data(base64Encoded: base64Data) else {
+      throw NSError(domain: "InvalidBase64", code: 0, userInfo: nil)
+    }
     let drawing = try PKDrawing(data: data)
 
-    let newCanvasView = createCanvasView(delegate: self)
-    newCanvasView.drawing = drawing
-    canvasView.removeFromSuperview()
-    synchronizeCanvasViewProperties(old: canvasView, new: newCanvasView)
-    canvasView = newCanvasView
-    layoutCanvasView()
+    canvasView.drawing = drawing
   }
 
   func applyProperties(properties: [String: Any?]) {
