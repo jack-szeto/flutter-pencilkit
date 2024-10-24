@@ -148,7 +148,7 @@ class _PencilKitState extends State<PencilKit> {
 
   @override
   void dispose() {
-    _controller?._dispose(); // Dispose of the controller
+    _controller?.dispose(); // Dispose of the controller
     _controller = null;
     super.dispose();
   }
@@ -270,7 +270,7 @@ class PencilKitController {
       _channel.invokeMethod('loadBase64Data', base64Data);
 
   /// Dispose the controller and release resources
-  void _dispose() {
+  void dispose() {
     _channel.invokeMethod('dispose');
     _channel.setMethodCallHandler(null); // Remove the method call handler
   }
