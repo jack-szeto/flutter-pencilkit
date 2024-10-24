@@ -23,7 +23,13 @@ public class SwiftPencilKitPlugin: NSObject, FlutterPlugin {
 private enum PencilKitUtil {
   static func handleMethodCall(call: FlutterMethodCall, result: @escaping FlutterResult) {
     if call.method == "checkAvailable" {
-      result(ProcessInfo().operatingSystemVersion.majorVersion >= 13)
+      if #available(iOS 13.0, *) {
+        result(true)
+      } else {
+        result(false)
+      }
+    } else {
+      result(FlutterMethodNotImplemented)
     }
   }
 }
